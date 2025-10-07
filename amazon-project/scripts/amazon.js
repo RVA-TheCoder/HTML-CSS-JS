@@ -1,5 +1,5 @@
 // console.log('hello') ;
-import {cart} from '../data/cart.js' ;
+import {cart, addToCart} from '../data/cart.js' ;
 import {products} from '../data/products.js' ;
 
 
@@ -69,40 +69,32 @@ document.querySelector('.js-products-grid')
   .innerHTML = productHTML  ; 
 
 
+
+
+function updateCartQuantity() {
+
+  let cartQuantity = 0 ;
+      cart.forEach( (item) => {
+        cartQuantity += item.quantity ; 
+      }) ; 
+
+      document.querySelector('.js-cart-quantity').innerText = cartQuantity ; 
+
+      console.log(cartQuantity) ; // we cooment this line - used for debugging
+}
+
 document.querySelectorAll('.js-add-to-cart')
   .forEach( (button) => {
     button.addEventListener('click', ()=> {
       
       const productId = button.dataset.productId ;
 
-      let matchingItem ; // undefined 
-      cart.forEach( (item) => {
-        
-        if (productId === item.productId) {
-          matchingItem = item
+      addToCart(productId) ; 
 
-        }
-      }) ;
+      updateCartQuantity() ; 
 
-      if (matchingItem) {
-        matchingItem.quantity += 1 ; 
-      } else {
-
-      cart.push( {
-        productId : productId,
-        quantity : 1
-      });
-
-      }
-
-      let cartQuantity = 0 ;
-      cart.forEach( (item) => {
-        cartQuantity += item.quantity ; 
-      }) ; 
-
-      document.querySelector('.js-cart-quantity').innerText = cartQuantity ; 
-      console.log(cartQuantity) ; 
-      console.log(cart) ;
+      
+      console.log(cart) ;  // cart
 
     }) ; 
   }) ; 
