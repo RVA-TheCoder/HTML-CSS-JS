@@ -1,6 +1,7 @@
 // console.log('hello') ;
+import {cart} from '../data/cart.js'
 
-
+const cart = [] ; 
 let productHTML = '' ;
 
 // products object : is comming from /data/products.js file
