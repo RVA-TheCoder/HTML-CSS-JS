@@ -1,13 +1,29 @@
-export let cart = [
-  {
-    productId : 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-    quantity : 2
-  },
-  {
-    productId : '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity : 1
-  }
-] ;
+// variables are reset when we refresh the page or go from one page to another
+// Therefore, we need to use the localStorage to use the actual value of the cart between different page reloads and website refresh
+
+// when we run the code for the fisrt time, it will return the null object
+export let cart = JSON.parse(localStorage.getItem('cart')) ;
+
+if (!cart) {
+    cart = [
+            {
+              productId : 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+              quantity : 2
+            },
+            {
+              productId : '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+              quantity : 1
+            }
+          ]  ; 
+
+}
+
+// whenever we update th cart, we need to save it to localStorage
+function saveToStorage() {
+
+  localStorage.setItem('cart', JSON.stringify(cart) ) ;
+
+}
 
 
 export function addToCart(productId) {
@@ -31,7 +47,10 @@ export function addToCart(productId) {
       });
 
       }
+      saveToStorage() ;
 }
+
+
 
 export function removeFromCart(productId) {
 
@@ -45,6 +64,8 @@ export function removeFromCart(productId) {
   }) ;
 
   cart = newCart ; // make to change the cart form const to let before doing re-assignment.
+
+  saveToStorage() ; 
 } 
 
 
