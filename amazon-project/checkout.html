@@ -84,6 +84,32 @@
       </div>
     </div>
 
+    <!-- it loads the library globally into the browser before our own script runs.
+
+         That means the dayjs library attaches itself to the global scope (the window object).
+         So after it loads, we can access it anywhere, including our other JS files, using dayjs()
+    -->
+    <!-- <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script>  -->
+
+
+    <!-- 
+    It tells the browser : This is a JavaScript module file — load it as an ES6 module.
+      Scope : Variables are scoped to the module (not global)
+      Imports/Exports : We can use import and export
+      Execution order : runs after HTML parsing
+
+    Each module has its own private scope, not polluting the global namespace.
+
+    Q : How does our module see dayjs?
+    A : Even though modules have their own scope, global variables are still visible inside modules.
+        Since dayjs is defined globally on window, we can still call it directly:
+
+    That's why our setup works:
+
+      - 'dayjs.min.js' loads first → defines global 'dayjs'
+
+      - 'checkout.js' runs as a module → still sees global 'dayjs'
+    -->
     <script type="module" src="./scripts/checkout.js"></script>
   </body>
 </html>
