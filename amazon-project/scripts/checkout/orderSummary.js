@@ -3,7 +3,7 @@ import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js'
 import {products, getProduct} from '../../data/products.js'
 import { formatCurrency } from '../utils/money.js'
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js'
-
+import {renderPaymentSummary} from './paymentSummary.js'
 
 // default export type : module can have only one default export.It is meant to represent the "main thing" the module provides.
 //                       Then we import without curly braces, and we can name it anything we want (optional)
@@ -44,8 +44,6 @@ export function renderOrderSummary() {
     const dateString = deliveryDate.format(
       'dddd, MMMM D'
     ) ;
-
-
 
 
     cartSummaryHTML += `
@@ -181,6 +179,8 @@ export function renderOrderSummary() {
         const container = document.querySelector(`.js-cart-item-container-${productId}`) ;
 
         container.remove() ; 
+
+        renderPaymentSummary() ; 
         
 
       })
@@ -199,12 +199,21 @@ export function renderOrderSummary() {
         updateDeliveryOption(productId, deliveryOptionId) ; 
 
         renderOrderSummary() ; 
+
+        renderPaymentSummary() ; 
         
       }) ;
 
     }) ;
 
 }
+
+
+
+
+
+
+
  
 
 
