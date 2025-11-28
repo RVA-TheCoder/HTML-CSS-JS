@@ -15,13 +15,15 @@ localStorageKey = cart-business
 
 class Cart {
 
-  // Properties
+  // Properties or fields
+  // Public property
   cartItems = undefined ;   // another way : cartItems ;
-  localStorageKey = undefined ;   // another way : localStorageKey ;
+  // private property
+  #localStorageKey = undefined ;   // another way : #localStorageKey ;
 
   // Constructor
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey ;
+    this.#localStorageKey = localStorageKey ;
   }
 
 
@@ -29,7 +31,7 @@ class Cart {
   // Inside a JS class, we never use the 'function' keyword when defining methods.
   loadFromStorage() {
 
-  this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) ;
+  this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) ;
 
   if (!this.cartItems) {
       this.cartItems = [
@@ -50,7 +52,7 @@ class Cart {
   // Whenever we update the cart, we need to save it to localStorage
   saveToStorage () {
 
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems) ) ;
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems) ) ;
 
   } 
 
@@ -136,6 +138,7 @@ cartBusiness.loadFromStorage() ; // we can put this code in the constructor itse
 console.log(cartSimple) ; 
 console.log(cartBusiness) ; 
 
+console.log(cartSimple instanceof Cart) ;
 
 
 
