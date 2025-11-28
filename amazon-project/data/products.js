@@ -1,4 +1,4 @@
-
+import { formatCurrency } from "../scripts/utils/money.js";
 
 export function getProduct(productId) {
 
@@ -17,6 +17,38 @@ export function getProduct(productId) {
   })
 
   return matchingProduct ; 
+}
+
+
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+
+  constructor(productDetails) {
+
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+
+  }
+
+  getStarsUrl() {
+
+    return `images/ratings/rating-${this.rating.stars*10}.png`
+  }
+
+  getPrice() {
+
+    return `$${ formatCurrency(this.priceCents) }`
+  }
+
 }
 
 
@@ -681,4 +713,19 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) => {
+
+  return new Product(productDetails) ;  // returning the instances of class Product
+});
+
+/*
+What map() Does
+
+  - Iterates over every element of an array
+  - Applies a callback function to each element
+  - Returns a new array with transformed values
+  - Original array remains unchanged
+
+*/
+
+// console.log(products) ;
