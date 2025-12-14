@@ -1,5 +1,10 @@
 import { formatCurrency } from "../scripts/utils/money.js";
 
+
+
+
+
+
 export function getProduct(productId) {
 
   let matchingProduct ;
@@ -99,7 +104,7 @@ console.log(tshirt.getPrice()) ;
 
 
 
-
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -769,6 +774,8 @@ export const products = [
   return new Product(productDetails) ;  // returning the instances of class Product
 });
 
+*/
+
 /*
 What map() Does
 
@@ -780,3 +787,62 @@ What map() Does
 */
 
 // console.log(products) ;
+
+
+export let products = [] ;
+
+export function loadProducts(fun) {
+
+  const xhr = new XMLHttpRequest() ;
+
+  // load event listener : the event listener must be registered before the request is sent, so it can catch the load event when the response arrives.
+  xhr.addEventListener( 'load', () => {
+
+    /*
+    We are telling the browser:
+
+      - When the response finishes loading, run this function.
+      
+        NOTE : This does NOT execute immediately It only registers a callback.
+        
+      - When the response fully arrives:
+
+          - Browser fires the load event
+
+          - Our registered callback runs
+
+          - Now xhr.response is populated
+
+    */
+    products = JSON.parse(xhr.response).map( (productDetails) => {
+
+                  if (productDetails.type === 'clothing') {
+
+                    return new Clothing(productDetails) ; 
+                  }
+
+                  return new Product(productDetails) ;  // returning the instances of class Product
+                }
+              ); 
+
+    console.log(products) ; 
+
+    fun() ;
+
+  }) ; 
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products') ;
+  xhr.send()
+
+} 
+
+
+ 
+
+
+
+
+
+
+
+
