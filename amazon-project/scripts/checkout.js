@@ -7,7 +7,7 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 // for the 'cart-oop-class.js' file
 //import '../data/cart-oop-class.js'  // this import statement will run all the code inside the file 
 
-
+import '../data/backend-Practice.js'
  
 renderOrderSummary() ; 
 renderPaymentSummary() ; 
