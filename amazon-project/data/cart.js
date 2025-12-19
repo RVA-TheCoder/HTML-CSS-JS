@@ -105,5 +105,45 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 }
 
 
+// For practicing Promise:
+export function loadCart(fun) {
+
+  const xhr = new XMLHttpRequest() ;
+
+  // load event listener : the event listener must be registered before the request is sent, so it can catch the load event when the response arrives.
+  xhr.addEventListener( 'load', () => {
+
+    /*
+    We are telling the browser:
+
+      - When the response finishes loading, run this function.
+      
+        NOTE : This does NOT execute immediately It only registers a callback.
+        
+      - When the response fully arrives:
+
+          - Browser fires the load event
+
+          - Our registered callback runs
+
+          - Now xhr.response is populated
+
+    */
+    
+
+    console.log(xhr.response) ; 
+
+    fun() ;
+
+  }) ; 
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart') ;
+  xhr.send()
+
+} 
+
+
+
+
 
 

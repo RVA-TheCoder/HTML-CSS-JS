@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import {loadFromStorage, cart} from '../../data/cart.js'
-
+import { loadProducts } from "../../data/products.js";
 
 
 /*
@@ -12,6 +12,16 @@ Two things to test :
 */
 
 describe('test suite: renderOrderSummary', () => {
+
+  beforeAll( (done) => {
+
+    loadProducts( () => {
+      done() ; 
+      
+    }) ; 
+      
+  });
+
 
   it('displays the cart', () => {
 
