@@ -837,6 +837,33 @@ export function loadProducts(fun) {
 } 
 
 
+
+export function loadProductsFetch() {
+
+  // fetch uses a Promise for a HTTP request
+  // the response we got from the fetch will be saved in the 'then((repsonse))' parameter
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
+    // response.json() : is a asynchronous and it returns a Promise
+    return response.json() ;
+
+  }).then((productsData) => {
+
+    // repsonse.json() output will be saved inside the parameter of then 'productsData'
+    products = productsData.map( (productDetails) => {
+
+                  if (productDetails.type === 'clothing') {
+
+                    return new Clothing(productDetails) ; 
+                  }
+
+                  return new Product(productDetails) ;  // returning the instances of class Product
+                }
+              ); 
+
+  }) ;
+
+  return promise ; 
+}
  
 
 

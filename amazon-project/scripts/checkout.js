@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 
@@ -54,8 +54,8 @@ new Promise( (resolve) => {
 }) ;
 */
 
-
-// Promise Practice : Approach1
+/*
+// Promise Practice : Approach2
 Promise.all( [
 
   new Promise( (resolve) => {
@@ -79,5 +79,25 @@ Promise.all( [
   renderPaymentSummary() ; 
 
 }) ;
+*/
 
+// Promise Practice : Approach3
+Promise.all( [
 
+  loadProductsFetch() ,
+
+  new Promise( (resolve) => {
+    loadCart( () => {
+
+      resolve('value2') ; 
+    }) ; 
+
+  })
+
+]).then( (values) => {
+
+  console.log(values) ; 
+  renderOrderSummary() ; 
+  renderPaymentSummary() ; 
+
+}) ;

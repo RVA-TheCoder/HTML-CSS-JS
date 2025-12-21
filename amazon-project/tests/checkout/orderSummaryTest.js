@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import {loadFromStorage, cart} from '../../data/cart.js'
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 
 /*
@@ -13,6 +13,8 @@ Two things to test :
 
 describe('test suite: renderOrderSummary', () => {
 
+  /*
+  // Approach1 : usinf callback
   beforeAll( (done) => {
 
     loadProducts( () => {
@@ -21,7 +23,17 @@ describe('test suite: renderOrderSummary', () => {
     }) ; 
       
   });
+  */
 
+  // Approach2 : Using fetch
+  beforeAll( (done) => {
+
+    loadProductsFetch().then( () => {
+      done() ; 
+    }) 
+       
+    }) ; 
+      
 
   it('displays the cart', () => {
 
