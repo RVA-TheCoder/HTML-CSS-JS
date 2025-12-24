@@ -84,7 +84,7 @@ Promise.all( [
 // Promise Practice : Approach3
 Promise.all( [
 
-  loadProductsFetch() ,
+  loadProductsFetch() , // this function returns a Promise
 
   new Promise( (resolve) => {
     loadCart( () => {
@@ -101,3 +101,199 @@ Promise.all( [
   renderPaymentSummary() ; 
 
 }) ;
+
+
+// -------------------------- Learning Part 1 : ---------------------------
+
+/*
+// async : makes a function return a Promise
+async function loadPage() {
+
+  console.log('load page.') ; 
+
+  // return value inside async function becomes/ equivalent to resolve('value2') inside a Promise.
+  return 'value2' ; 
+}
+
+loadPage().then( (value2) => {
+
+  console.log('next step.');
+  console.log(value2);
+
+}) ;
+*/
+
+
+// ------------------------------ Learning Part 2 : ---------------------------------
+
+/*
+
+// async : makes a function return a Promise
+// asyn-await can only be used with Promises.
+async function loadPage() {
+
+  // runs synchronously.
+  console.log('load page.') ; 
+
+
+  // Lets us write asynchronous code like a normal code
+  //    → pauses 'loadProductsFetch' function only
+  //    → waits until the Promise returned by loadProductsFetch() resolves.
+  
+  
+  await loadProductsFetch() ;  // Using Asynchronous code like a normal code
+
+
+  // return value inside async function becomes/ equivalent to resolve('value2') inside a Promise.
+  //  -> return 'value2'
+  //  -> resolves the Promise returned by loadPage() with 'value2'.
+  
+  //  NOTE : An async function always returns a Promise, even when we return a normal value.
+
+  //          So this is equivalent to:  return Promise.resolve('value2');
+  
+  
+  return 'value2' ; 
+}
+
+loadPage().then( (value2) => {
+
+  console.log('next step.');
+  console.log(value2);
+
+}) ;
+
+*/
+
+
+
+
+// ---------------------- Learning Part 3 : --------------------------------------------- 
+
+/*
+
+// async : makes a function return a Promise
+// asyn-await can only be used with Promises.
+async function loadPage() {
+
+  // runs synchronously.
+  console.log('load page.') ; 
+
+
+  // Lets us write asynchronous code like a normal code
+  //    → pauses 'loadProductsFetch' function only
+  //    → waits until the Promise returned by loadProductsFetch() resolves.
+  
+  
+  await loadProductsFetch() ; 
+
+  const value3 = await new Promise( (resolve) => {
+
+    loadCart( () => {
+      resolve('value3') ; 
+    }) ;
+
+  })
+
+  console.log(value3) ;
+
+
+  // return value inside async function becomes/ equivalent to resolve('value2') inside a Promise.
+  //  -> return 'value2'
+  //  -> resolves the Promise returned by loadPage() with 'value2'.
+  
+  //  NOTE : An async function always returns a Promise, even when we return a normal value.
+
+  //          So this is equivalent to:  return Promise.resolve('value2');
+  
+  
+  return 'value2' ; 
+}
+
+loadPage().then( (value2) => {
+
+  console.log('next step.');
+  console.log(value2);
+
+}) ;
+
+*/
+
+
+
+
+
+
+
+// ----------------------------------- Learning Part 4 : -----------------------------
+
+
+
+// async : makes a function return a Promise
+// asyn-await can only be used with Promises.
+async function loadPage() {
+
+  // runs synchronously.
+  console.log('load page.') ; 
+
+
+  // Lets us write asynchronous code like a normal code
+  //    → pauses 'loadProductsFetch' function only
+  //    → waits until the Promise returned by loadProductsFetch() resolves.
+  
+  
+  await loadProductsFetch() ; 
+
+  const value3 = await new Promise( (resolve) => {
+
+    loadCart( () => {
+      resolve('value3') ; 
+    }) ;
+
+  })
+
+  console.log(value3) ;
+
+  renderOrderSummary();
+  renderPaymentSummary();
+
+
+  // return value inside async function becomes/ equivalent to resolve('value2') inside a Promise.
+  //  -> return 'value2'
+  //  -> resolves the Promise returned by loadPage() with 'value2'.
+  
+  //  NOTE : An async function always returns a Promise, even when we return a normal value.
+
+  //          So this is equivalent to:  return Promise.resolve('value2');
+  
+  
+  return 'value2' ; 
+}
+
+loadPage().then( (value2) => {
+
+  console.log('next step.');
+  console.log(value2);
+
+}) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
