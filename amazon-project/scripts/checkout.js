@@ -233,6 +233,44 @@ loadPage().then( (value2) => {
 // asyn-await can only be used with Promises.
 async function loadPage() {
 
+  // Variables declared with const or let are block-scoped
+
+  // That means:
+
+  //  - value3 exists only inside the { ... } of the try block
+
+  //  - Outside the try block → value3 does not exist
+  let value3; // declare in outer scope
+
+  try {
+  
+  // For creating the error manually use syntax  : throw 'error1' ;
+
+  // Use the code in the 'try' block that can cause the error.
+  await loadProductsFetch() ; 
+ 
+  value3 = await new Promise( (resolve , reject) => {
+
+    // for creating Synchronous manual error in the Promise : 
+    // throw 'error1' ;
+    loadCart( () => {
+
+      // for asynchronous manual error use 'reject' function
+      //reject('error3') ; 
+
+      resolve('value3') ; 
+    }) ;
+
+  }) ;
+
+  } catch (error) {
+
+    // 'catch' block will run the code if error occurs in the try block
+    console.log(error) ;
+    console.log('Unexpected error. Please try again later.') ;
+
+  }
+
   // runs synchronously.
   console.log('load page.') ; 
 
@@ -242,17 +280,7 @@ async function loadPage() {
   //    → waits until the Promise returned by loadProductsFetch() resolves.
   
   
-  await loadProductsFetch() ; 
-
-  const value3 = await new Promise( (resolve) => {
-
-    loadCart( () => {
-      resolve('value3') ; 
-    }) ;
-
-  })
-
-  console.log(value3) ;
+  console.log(value3) ; // ✅ now accessible
 
   renderOrderSummary();
   renderPaymentSummary();

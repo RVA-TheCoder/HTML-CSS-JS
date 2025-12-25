@@ -831,10 +831,44 @@ export function loadProducts(fun) {
 
   }) ; 
 
+  // For callback : We need to setup a separate callback just for errors
+  // Below error code will run iff there is an error in http request.
+  // In case of http error, xhr.addEventListener( 'load', () => {}) code will not run.
+  xhr.addEventListener('error', (error) => {
+    
+    // 'error' : str :  is an event type 
+    // This event fires when the request fails due to:
+
+    //    - Network error
+    //   - Server unreachable
+    //   - CORS issue
+    //   - Internet disconnected
+
+    // NOTE : 
+    //       It does NOT fire for HTTP errors like 404 or 500. Those still trigger the load event.
+
+    // error : parameter in the arrow function : When an error event happens, give me the event details in the variable or parameter (in the arrow function) error 
+    // error is an Event object (specifically a ProgressEvent for XHR).
+
+    // It contains information like:
+
+    //   - error.type → "error"
+    //   - error.target → the XMLHttpRequest object
+    //   - error.loaded, error.total → bytes info (often 0 on failure)
+    
+    console.log(error) ;
+    console.log('Unexpected error. Please try again later.')
+  }) ;
+
   xhr.open('GET', 'https://supersimplebackend.dev/products') ;
   xhr.send()
 
 } 
+
+// For testing Error handling Purpose
+// change the xhr.open() to  : xhr.open('GET', 'https://error.supersimplebackend.dev/products') ;
+// loadProducts() ; 
+
 
 
 
@@ -860,10 +894,20 @@ export function loadProductsFetch() {
                 }
               ); 
 
-  }) ;
+  }).catch( (error) => {
+
+    // For handling the error
+    console.log('Unexpected error. Please try again later.')
+    console.log(error) ; 
+  }) ; 
 
   return promise ; 
+  
 }
+
+// For testing error handling in the Http request made with the help of Promise.
+// change the const promise = fetch() to  : const promise = fetch('https://error.supersimplebackend.dev/products')
+// loadProductsFetch() ;
  
 
 
