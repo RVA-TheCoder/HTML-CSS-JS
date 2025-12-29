@@ -3,7 +3,7 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
 
-
+import { addOrder } from '../../data/orders.js';
 
 
 
@@ -69,7 +69,8 @@ export function renderPaymentSummary() {
       </div>
     </div>
 
-    <button class="place-order-button button-primary">
+    <button class="place-order-button button-primary
+      js-place-order">
       Place your order
     </button>
   
@@ -77,6 +78,43 @@ export function renderPaymentSummary() {
 
   document.querySelector('.js-payment-summary')
     .innerHTML = paymentSummaryHTML ; 
+
+  document.querySelector('.js-place-order')
+    .addEventListener('click', async () => {
+
+      try {
+        
+        const response = await fetch('https://supersimplebackend.dev/orders', {
+
+        method : 'POST',
+        headers : {
+          'Content-Type' : 'application/json'
+        } ,
+
+        body : JSON.stringify({
+          cart :  cart   // we cannot send an object directly, convert it into JSON string first
+        })
+
+      }) ;
+
+      // response.json() is a Promise
+      const order = await response.json()
+
+      //console.log(order) ;  // for debugging purpose
+      
+      addOrder(order) ;
+
+      } catch(error) {
+
+        console.log('Unexpected error. Try again localStorage.') ;
+      }
+      
+      // Currently 'paymentSummary.js' file is being run in 'checkout.html'
+      // so same 'orders.html' file and 'checkout.html' are in the same directory
+      // otherwise , we will have to use relative filepath to reach from 'checkout.html' to 'orders.html' file.
+      window.location.href = 'orders.html' ; 
+
+    }) ;
 
 }
 

@@ -88,5 +88,28 @@
         </div>
       </div>
     </div>
+
+    <script>
+
+      /*
+      For this to work follow below steps : 
+
+        step1 : click on the 'Place your order' button at the checkout page.
+        step2 : Above step will take us to 'order.html' page , the click on the 'Track package' button on any item.
+        step3 : Above step will take us to 'tracking.html' page, now on the url avialable : http://127.0.0.1:5500/13_Amazon_project/amazon-project/tracking.html
+
+        step4 :  type : ?orderId=123&productId=12345 at the end to add the url parameters and press Enter on the url box and it wil show the URL parameters values on the console.
+
+                  ? : means we are adding URL parameters
+                  & : to separate two URL parameters 
+      */
+      const url = new URL(window.location.href) ; 
+      console.log(url.searchParams.get('orderId')) ; 
+      console.log(url.searchParams.get('productId')) ; 
+
+
+    </script>
+
+
   </body>
 </html>
